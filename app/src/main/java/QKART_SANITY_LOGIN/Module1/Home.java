@@ -24,9 +24,13 @@ public class Home {
     }
 
     public Boolean PerformLogout() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+
         try {
             // Find and click on the Logout Button
             WebElement logout_button = driver.findElement(By.className("MuiButton-text"));
+            wait.until(ExpectedConditions.visibilityOf(logout_button));
+
             logout_button.click();
 
             // Wait for Logout to Complete

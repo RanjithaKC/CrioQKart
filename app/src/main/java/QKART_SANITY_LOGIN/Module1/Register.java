@@ -22,13 +22,16 @@ public class Register {
         if (!driver.getCurrentUrl().equals(this.url)) {
             driver.get(this.url);
         }
-    }
+    } 
 
     public Boolean registerUser(String Username, String Password, Boolean makeUsernameDynamic)
             throws InterruptedException {
         // Find the Username Text Box
-        WebElement username_txt_box = this.driver.findElement(By.id("username"));
+        WebDriverWait wait = new WebDriverWait(driver, 30);
 
+        WebElement username_txt_box = this.driver.findElement(By.id("username"));
+        wait.until(ExpectedConditions.visibilityOf(username_txt_box));
+        
         // Get time stamp for generating a unique username
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -37,13 +40,15 @@ public class Register {
             // Concatenate the timestamp to string to form unique timestamp
             test_data_username = Username + "_" + String.valueOf(timestamp.getTime());
         else
-             test_data_username = Username + "_" + String.valueOf(timestamp.getTime());
+             test_data_username = Username;
 
         // Type the generated username in the username field
         username_txt_box.sendKeys(test_data_username);
 
         // Find the password Text Box
         WebElement password_txt_box = this.driver.findElement(By.id("password"));
+        //wait.until(ExpectedConditions.visibilityOf(password_txt_box));
+
         String test_data_password = Password;
 
         // Enter the Password value
@@ -52,6 +57,7 @@ public class Register {
         // Find the Confirm password text box
         WebElement confirm_password_txt_box;
         confirm_password_txt_box = this.driver.findElement(By.id("confirmPassword"));
+        wait.until(ExpectedConditions.visibilityOf(confirm_password_txt_box));
 
         // Enter the Confirm Password Value
         confirm_password_txt_box.sendKeys(test_data_password);

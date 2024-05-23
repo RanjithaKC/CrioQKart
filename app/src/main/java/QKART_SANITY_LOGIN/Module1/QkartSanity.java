@@ -3,15 +3,16 @@
  */
 package QKART_SANITY_LOGIN.Module1;
 
-import java.io.File;
+//import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+//import java.util.Arrays;
+//import java.util.List;
+//import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -26,9 +27,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class QkartSanity {
 
     public static String lastGeneratedUserName;
-
+   // public static RemoteWebDriver driver;
 
     public static RemoteWebDriver createDriver() throws MalformedURLException {
+      
         // Launch Browser using Zalenium
         final DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(BrowserType.CHROME);
@@ -55,6 +57,8 @@ public class QkartSanity {
         Register registration = new Register(driver);
         registration.navigateToRegisterPage();
         status = registration.registerUser("testUser", "abc@123", true);
+        System.out.println("status is "+ status);
+        Thread.sleep(4000);
         if (!status) {
             logStatus("TestCase 1", "Test Case Pass. User Registration Pass", "FAIL");
             logStatus("End TestCase", "Test Case 1: Verify user Registration : ", status ? "PASS" : "FAIL");
@@ -67,12 +71,14 @@ public class QkartSanity {
 
         // Save the last generated username
         lastGeneratedUserName = registration.lastGeneratedUsername;
-
+        System.out.println("last generated usename is : "+ lastGeneratedUserName);
         // Visit the login page and login with the previuosly registered user
         Login login = new Login(driver);
         login.navigateToLoginPage();
         status = login.PerformLogin(lastGeneratedUserName, "abc@123");
+        Thread.sleep(4000);
         logStatus("Test Step", "User Perform Login: ", status ? "PASS" : "FAIL");
+        System.out.println("status after login method : "+status);
         if (!status) {
             logStatus("End TestCase", "Test Case 1: Verify user Registration : ", status ? "PASS" : "FAIL");
             return false;
@@ -123,6 +129,7 @@ public class QkartSanity {
         int passedTests = 0;
         Boolean status;
         // Maximize and Implicit Wait for things to initailize
+        RemoteWebDriver driver = createDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
