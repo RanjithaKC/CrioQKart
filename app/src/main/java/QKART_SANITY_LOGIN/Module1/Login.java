@@ -43,6 +43,7 @@ public class Login {
         wait.until(ExpectedConditions.visibilityOf(password_txt_box));
 
         //password_txt_box.click();
+
         // Enter the password
         password_txt_box.sendKeys(Password);
 

@@ -27,7 +27,7 @@ public class Register {
     public Boolean registerUser(String Username, String Password, Boolean makeUsernameDynamic)
             throws InterruptedException {
         // Find the Username Text Box
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 50);
 
         WebElement username_txt_box = this.driver.findElement(By.id("username"));
         wait.until(ExpectedConditions.visibilityOf(username_txt_box));
@@ -68,11 +68,18 @@ public class Register {
         // Click the register now button
         register_now_button.click();
         // Wait for registration to complete
-        Thread.sleep(3000);
-
+       // Thread.sleep(6000);
+        WebElement registerExists = driver.findElement(By.id("notistack-snackbar"));
+        if(registerExists.isDisplayed()){
+            System.out.println("message after registration is "+ registerExists.getText()+" the status is "+ registerExists.isDisplayed());
+        }
 
         this.lastGeneratedUsername = test_data_username;
 
-        return this.driver.getCurrentUrl().endsWith("/login");
+        // if(this.driver.getCurrentUrl().endsWith("/login")){
+        //    System.out.println("login page url is "+ driver.getCurrentUrl()); 
+        // }
+       return  this.driver.getCurrentUrl().endsWith("/login");
+      //  return true;
     }
 }
