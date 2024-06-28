@@ -28,15 +28,12 @@ public class Home {
     public Boolean PerformLogout() throws InterruptedException {
         try {
             // Find and click on the Logout Button
-           // WebElement logout_button = driver.findElement(By.className("MuiButton-text"));
-           WebDriverWait wait = new WebDriverWait(driver, 10);
-           WebElement logout_button = wait.until(ExpectedConditions.presenceOfElementLocated(By.className("MuiButton-text")));
+            WebElement logout_button = driver.findElement(By.className("MuiButton-text"));
             logout_button.click();
 
             // Wait for Logout to Complete
-            //Thread.sleep(3000);
+            Thread.sleep(3000);
 
-            wait.until(ExpectedConditions.urlToBe("https://crio-qkart-frontend-qa.vercel.app/"));
             return true;
         } catch (Exception e) {
             // Error while logout
@@ -55,12 +52,13 @@ public class Home {
             WebElement searchTextBox = driver.findElement(By.xpath("//input[@name='search']"));
             searchTextBox.clear();
             searchTextBox.sendKeys(product);
-            Thread.sleep(3000);
-            //SLEEP_STMT_09: Wait for search to complete
-            WebDriverWait wait = new WebDriverWait(driver, 10);
-           // List<WebElement> elementsLocatedWithWait = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']"))); 
-           // System.out.println("waiting for page to load after searching until all elements are visible by locator ");  
-            wait.until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']")),ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[text()=' No products found ']"))));
+            // searchTextBox.sendKeys(Keys.ENTER);
+            Thread.sleep(4000);
+            // if(searchTextBox.equals(product)){
+            // return true;
+            // }else{
+            // return false;
+            // }
             return true;
         } catch (Exception e) {
             System.out.println("Error while searching for a product: " + e.getMessage());
@@ -79,6 +77,10 @@ public class Home {
             // search results
             searchResults = driver
                     .findElements(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']"));
+            // for(WebElement searchReasult : searchResultsOnPage){
+            // searchResults.add(searchReasult);
+            // }
+            // System.out.println("search results = "+ searchResults.toString());
             return searchResults;
         } catch (Exception e) {
             System.out.println("There were no search results: " + e.getMessage());
@@ -101,10 +103,7 @@ public class Home {
                     driver.findElement(By.xpath("//h4[text()=' No products found ']"));
             searchTextBox.clear();
             searchTextBox.sendKeys("Gesundheit");
-            //Thread.sleep(3000);
-            WebDriverWait wait = new WebDriverWait(driver, 10);
-
-            wait.until(ExpectedConditions.textToBePresentInElementValue(errorMsg, " No products found "));
+            Thread.sleep(3000);
             if (errorMsg.getText().contains(" No products found ")) {
                 status = true;
             }
@@ -145,7 +144,7 @@ public class Home {
                 System.out.println("The searched product is "+ searchedProductName.getText());
                 if(searchedProductText.equals(productName)){
                     addToCartButton.get(i).click();
-                    Thread.sleep(4000);
+                    Thread.sleep(3000);
                     return true;
                 } 
             }
@@ -167,10 +166,7 @@ public class Home {
             // Find and click on the the Checkout button
             WebElement checkoutButton = driver.findElement(By.xpath("//button[text()='Checkout']"));
             checkoutButton.click();
-            //Thread.sleep(3000);
-            WebDriverWait wait = new WebDriverWait(driver, 10);
-
-            wait.until(ExpectedConditions.urlContains("/checkout"));
+            Thread.sleep(3000);
             String checkoutPageUrl = driver.getCurrentUrl();
             if(checkoutPageUrl.contains("checkout")){
                 status = true;
@@ -188,7 +184,7 @@ public class Home {
     public Boolean changeProductQuantityinCart(String productName, int quantity) {
         try {
             // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 06: MILESTONE 5
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+
             // Find the item on the cart with the matching productName
             List<WebElement> cartParentElement = driver.findElements(By.xpath("//div[@class='MuiBox-root css-1gjj37g']"));
             // Increment or decrement the quantity of the matching product until the current
@@ -203,15 +199,12 @@ public class Home {
                     if(productQuantityInCart<quantity){ //1<2
                         WebElement increamentOperator = productCard.findElement(By.xpath("./div[2]/div/button[2]"));
                         increamentOperator.click();
-                       // Thread.sleep(6000);
-                       wait.until(ExpectedConditions.textToBePresentInElement(productCard.findElement(By.xpath("./div[2]/div/div")),String.valueOf(productQuantityInCart+1)));
-                       productQuantityInCart++;
-
+                        Thread.sleep(6000);
+                        productQuantityInCart++;
                     }else if(productQuantityInCart>quantity){
                         WebElement decreamentOperator = productCard.findElement(By.xpath("./div[2]/div/button[1]"));
                         decreamentOperator.click();
-                       // Thread.sleep(6000);
-                       wait.until(ExpectedConditions.textToBePresentInElement(productCard.findElement(By.xpath("./div[2]/div/div")),String.valueOf(productQuantityInCart-1)));
+                        Thread.sleep(6000);
                         productQuantityInCart--;
                     }else if(productQuantityInCart == quantity){
                         return true;

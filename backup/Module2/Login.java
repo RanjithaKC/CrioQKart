@@ -34,11 +34,15 @@ public class Login {
         //username_txt_box.click();
         // Enter the username
         username_txt_box.sendKeys(Username);
+
         // Wait for user name to be entered
-        wait.until(ExpectedConditions.textToBePresentInElementValue(username_txt_box, Username));
+        Thread.sleep(1000);
+
         // Find the password Text Box
         WebElement password_txt_box = this.driver.findElement(By.id("password"));
         wait.until(ExpectedConditions.visibilityOf(password_txt_box));
+
+        //password_txt_box.click();
 
         // Enter the password
         password_txt_box.sendKeys(Password);
@@ -50,12 +54,8 @@ public class Login {
         // Click the login Button
         login_button.click();
 
-        FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver);
-        fluentWait.withTimeout(Duration.ofSeconds(30));
-        fluentWait.pollingEvery(Duration.ofMillis(250));
-        fluentWait.until(ExpectedConditions.invisibilityOf(login_button));
         // Wait for Login action to complete
-        //Thread.sleep(5000);
+        Thread.sleep(5000);
         wait.until(ExpectedConditions.urlToBe("https://crio-qkart-frontend-qa.vercel.app/"));
         return this.VerifyUserLoggedIn(Username);
     }

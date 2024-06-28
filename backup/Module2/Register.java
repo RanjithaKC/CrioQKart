@@ -22,7 +22,7 @@ public class Register {
         if (!driver.getCurrentUrl().equals(this.url)) {
             driver.get(this.url);
         }
-    }
+    } 
 
     public Boolean registerUser(String Username, String Password, Boolean makeUsernameDynamic)
             throws InterruptedException {
@@ -31,7 +31,7 @@ public class Register {
 
         WebElement username_txt_box = this.driver.findElement(By.id("username"));
         wait.until(ExpectedConditions.visibilityOf(username_txt_box));
-
+        
         // Get time stamp for generating a unique username
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
@@ -40,14 +40,14 @@ public class Register {
             // Concatenate the timestamp to string to form unique timestamp
             test_data_username = Username + "_" + String.valueOf(timestamp.getTime());
         else
-            test_data_username = Username;
+             test_data_username = Username;
 
         // Type the generated username in the username field
         username_txt_box.sendKeys(test_data_username);
 
         // Find the password Text Box
         WebElement password_txt_box = this.driver.findElement(By.id("password"));
-        // wait.until(ExpectedConditions.visibilityOf(password_txt_box));
+        //wait.until(ExpectedConditions.visibilityOf(password_txt_box));
 
         String test_data_password = Password;
 
@@ -68,24 +68,18 @@ public class Register {
         // Click the register now button
         register_now_button.click();
         // Wait for registration to complete
-        // Thread.sleep(6000);
-        Boolean status = wait.until(
-                ExpectedConditions.or(ExpectedConditions.urlContains("/login"),ExpectedConditions.urlContains("/register")));
-        System.out.println(
-                "verifying url with wait condition after clicking on register and status is "
-                        + status);
+       // Thread.sleep(6000);
         WebElement registerExists = driver.findElement(By.id("notistack-snackbar"));
-        if (registerExists.isDisplayed()) {
-            System.out.println("message after registration is " + registerExists.getText()
-                    + " the status is " + registerExists.isDisplayed());
+        if(registerExists.isDisplayed()){
+            System.out.println("message after registration is "+ registerExists.getText()+" the status is "+ registerExists.isDisplayed());
         }
 
         this.lastGeneratedUsername = test_data_username;
 
         // if(this.driver.getCurrentUrl().endsWith("/login")){
-        // System.out.println("login page url is "+ driver.getCurrentUrl());
+        //    System.out.println("login page url is "+ driver.getCurrentUrl()); 
         // }
-        return this.driver.getCurrentUrl().endsWith("/login");
-        // return true;
+       return  this.driver.getCurrentUrl().endsWith("/login");
+      //  return true;
     }
 }

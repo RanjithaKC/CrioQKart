@@ -2,7 +2,6 @@ package QKART_SANITY_LOGIN.Module1;
 
 import java.util.List;
 import org.apache.commons.lang3.SystemUtils;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -35,23 +34,14 @@ public class Checkout {
              */
             WebElement addNewAddressButton = driver.findElement(By.id("add-new-btn"));
             addNewAddressButton.click();
-           // Thread.sleep(3000);
+            Thread.sleep(3000);
             WebElement textArea = driver.findElement(
                     By.xpath("(//textarea[contains(@class,'MuiOutlinedInput-input')])[1]"));
             textArea.sendKeys(addresString);
             Thread.sleep(2000);
             WebElement addButton = driver.findElement(By.xpath("//button[text()='Add']"));
             addButton.click();
-          //  List<WebElement> addedAddress = driver.findElements(By.xpath("//div[@class='address-item not-selected MuiBox-root css-0']/div/p"));
-            WebDriverWait wait = new WebDriverWait(driver, 10);
-            List<WebElement> addedAddress = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='address-item not-selected MuiBox-root css-0']/div/p")));
-            for(WebElement added : addedAddress){
-                String add = added.getText();
-                System.out.println("added address = "+add);
-                wait.until(ExpectedConditions.textToBe(By.xpath("//div[@class='address-item not-selected MuiBox-root css-0']/div/p"), addresString));
-                break;
-            }
-           // Thread.sleep(5000);
+            Thread.sleep(5000);
             // WebElement selectAddress =
             // driver.findElement(By.xpath("//span[@class='css-hyxlzm']"));
             // selectAddress.click();
@@ -80,7 +70,7 @@ public class Checkout {
                 System.out.println("address is " + address.getText());
                 if (address.getText().equals(addressToSelect)) {
                     address.click();
-                   // Thread.sleep(6000);
+                    Thread.sleep(6000);
                     System.out.println("selected address is " + address.getText());
                     return true;
                 }
@@ -105,8 +95,7 @@ public class Checkout {
             WebElement placeOrderButton =
                     driver.findElement(By.xpath("//button[text()='PLACE ORDER']"));
             placeOrderButton.click();
-           // Thread.sleep(4000);
-           
+            Thread.sleep(4000);
             return false;
 
         } catch (Exception e) {
