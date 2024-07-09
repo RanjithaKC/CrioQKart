@@ -54,7 +54,7 @@ public class Home {
             // TODO: CRIO_TASK_MODULE_XPATH - M0 Fix broken Xpath
             WebDriverWait wait = new WebDriverWait(driver,30);
              wait.until(ExpectedConditions.or(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//p[contains(@class,'css-yg30e6')]"), product),
-             ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[contains(text(),'No products found')]"))));
+             ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[contains(text(),'No products found')]"))));
             // Thread.sleep(3000);
            // wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//p[contains(@class,'css-yg30e6')]"), product));
             return true;
@@ -216,13 +216,13 @@ public class Home {
             // Iterate through expectedCartContents and check if item with matching product
             // name is present in the cart
 
-            WebElement cartParent = driver.findElement(By.className("cart"));
-            List<WebElement> cartContents = cartParent.findElements(By.className("css-zgtx0t"));
+            WebElement cartParent = driver.findElement(By.xpath("//div[@class='cart MuiBox-root css-0']"));
+            List<WebElement> cartContents = cartParent.findElements(By.xpath(".//div[@class='MuiBox-root css-zgtx0t']"));
 
             ArrayList<String> actualCartContents = new ArrayList<String>() {
             };
             for (WebElement cartItem : cartContents) {
-                actualCartContents.add(cartItem.findElement(By.className("css-1gjj37g")).getText().split("\n")[0]);
+                actualCartContents.add(cartItem.findElement(By.xpath("//div[@class='MuiBox-root css-1gjj37g']")).getText().split("\n")[0]);
             }
 
             for (String expected : expectedCartContents) {

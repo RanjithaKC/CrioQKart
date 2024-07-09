@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SearchResult {
     WebElement parentElement;
 
+   // parentElement = driver.findElement(By.xpath("//button[text()='Size chart']"));
+
     public SearchResult(WebElement SearchResultElement) {
         this.parentElement = SearchResultElement;
     }
@@ -37,7 +39,8 @@ public class SearchResult {
     public Boolean openSizechart() {
         try {
             // Find the link of size chart in the parentElement and click on it
-            WebElement element = parentElement.findElement(By.tagName("button"));
+            
+            WebElement element = parentElement.findElement(By.xpath(".//button[text()='Size chart']"));
             element.click();
 
             Thread.sleep(3000);
