@@ -1,5 +1,6 @@
 # QKART-Testing
 The application under test is QKart, an e-commerse platform.
+just adding a line to see the command behaviour.
 
 ### About the Project
 The TestNG script is designed to evaluate the functionality of a dummy e-commerce website. The script performs various tests, checking functionality of features and integated functionalities.
