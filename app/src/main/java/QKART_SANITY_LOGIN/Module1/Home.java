@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Home {
     RemoteWebDriver driver;
     String url = "https://crio-qkart-frontend-qa.vercel.app";
-
+    System.out.println(url);
     public Home(RemoteWebDriver driver) {
         this.driver = driver;
     }
